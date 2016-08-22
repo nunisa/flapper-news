@@ -1,0 +1,233 @@
+<% layout('./common_templates/layout') %>
+<ui-view></ui-view>
+<script type="text/ng-template" id="/home.html">
+	<div class="container text-justify text-muted">
+		<div class="row">
+			<div class="col-xs-11 col-custom">
+				<div class="page-header text-center">
+					<h2 class="text-muted">{{test}}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-md-offset-3 col-sm-offset-3" ng-repeat="post in posts | orderBy: '-upvotes'">
+							<span ng-click="incrementUpvotes(post)"><span class="glyphicon glyphicon-thumbs-up"></span></span>
+							<span ng-show="post.author" class="ng-hide">Posted by <a>{{post.author}}</a> | </span>
+							<span>{{post.upvotes}}&nbsp;&nbsp;</span>
+							<a ng-show="post.link" href="{{post.link}}" class="ng-hide">
+								{{post.title}}
+							</a>
+							<span>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#/posts/{{post._id}}" title="Comments"><span class="glyphicon glyphicon-comment"></span></a>
+							</span>
+						</div>
+						<div class="col-xs-12 col-md-offset-3 col-sm-offset-3">
+							<form class="form-inline" ng-submit="addPost()" ng-show="isLoggedIn()">
+								<h4>Add a new post</h4>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="title">Post Title</label>
+											<input type="text" placeholder="Title" class="form-control" name="title" id="title" ng-model="title">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="link">Post Link</label>
+											<input type="text" placeholder="Link" class="form-control" name="link" id="link" ng-model="link">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<button type="submit" class="btn btn-primary btn-sm">Post</button>
+									</div>
+								</div>
+							</form>
+							<div class="row">
+								<div class="col-xs-12">
+									<i>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/ng-template" id="/posts.html">
+	<div class="container text-justify text-muted">
+		<div class="row">
+			<div class="col-xs-11 col-custom">
+				<div class="page-header text-center">
+					<h2 class="text-muted">{{test}}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="page-header">
+					<h3 class="text-muted">
+						<a ng-show="post.link" href="{{post.link}}" class="ng-hide">
+							{{post.title}}
+						</a>
+					</h3>
+				</div>
+				<div class="panel panel-default" ng-show="post.comments.length" class="ng-hide">
+					<div class="panel-body">
+						<div class="col-xs-12" ng-repeat="comment in post.comments | orderBy: '-upvotes'">
+							<span ng-click="incrementUpvotes(comment)"><span class="glyphicon glyphicon-thumbs-up"></span></span>
+							<span>{{comment.upvotes}} - by {{comment.author}}</span>
+							<span>{{comment.body}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-inline" ng-submit="addComment()" ng-show="isLoggedIn()">
+					<h5>Add a new comment</h5>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="sr-only" for="body">New Comment</label>
+								<input type="text" placeholder="Comment" class="form-control" name="body" id="body" ng-model="body">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="sr-only" for="author">New Author</label>
+								<input type="text" placeholder="Author" class="form-control" name="author" id="author" ng-model="author">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<button type="submit" class="btn btn-primary btn-sm">Comment</button>
+						</div>
+					</div>
+				</form>
+				<div class="row">
+					<div class="col-xs-12">
+						<i>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a comment.</i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/ng-template" id="/register.html">
+	<div class="container text-justify text-muted">
+		<div class="row">
+			<div class="col-xs-11 col-custom">
+				<div class="page-header text-center">
+					<h2 class="text-muted">{{test}}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>Oops!</strong> <span>{{error.message}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-md-offset-3 col-sm-offset-3">
+							<form class="form-inline" ng-submit="register()">
+								<h4>Sign Up</h4>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="username">Username</label>
+											<input type="text" placeholder="Username" class="form-control" name="username" id="username" ng-model="user.username">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="password">Password</label>
+											<input type="password" placeholder="Password" class="form-control" name="password" id="password" ng-model="user.password">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<button type="submit" class="btn btn-primary btn-sm">Register</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/ng-template" id="/login.html">
+	<div class="container text-justify text-muted">
+		<div class="row">
+			<div class="col-xs-11 col-custom">
+				<div class="page-header text-center">
+					<h2 class="text-muted">{{test}}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>Oops!</strong> <span>{{error.message}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-md-offset-3 col-sm-offset-3">
+							<form class="form-inline" ng-submit="logIn()">
+								<h4>Sign In</h4>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="username">Username</label>
+											<input type="text" placeholder="Username" class="form-control" name="username" id="username" ng-model="user.username">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="password">Password</label>
+											<input type="password" placeholder="Password" class="form-control" name="password" id="password" ng-model="user.password">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<button type="submit" class="btn btn-primary btn-sm">Login</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

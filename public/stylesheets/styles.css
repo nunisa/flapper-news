@@ -1,0 +1,15 @@
+.glyphicon-thumbs-up {
+	cursor: pointer;
+}
+
+form .row {
+	margin-bottom: 15px !important;
+}
+
+.page-header {
+	margin: 20px 0;
+}
+
+.col-custom {
+	margin-top: -76px !important;
+}
