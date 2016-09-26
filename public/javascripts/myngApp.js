@@ -13,6 +13,7 @@ app
 		$scope.title = '';
 		$scope.link = '';
 	};
+	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(post) {
 		if (!post.hadUpvoted) {
 			post.hadUpvoted = true;
@@ -24,6 +25,7 @@ app
 	$scope.showPostForm = function() {
 		$scope.postFormShown = 1;
 	};
+	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(post) {
 		if (!post.hadDownvoted) {
 			post.hadDownvoted = true;
@@ -44,6 +46,7 @@ app
 		});
 		$scope.body = '';
 	};
+	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(comment) {
 		if (!comment.hadUpvoted) {
 			comment.hadUpvoted = true;
@@ -55,6 +58,7 @@ app
 	$scope.showCommentForm = function() {
 		$scope.commentFormShown = 1;
 	};
+	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(comment) {
 		if (!comment.hadDownvoted) {
 			comment.hadDownvoted = true;
@@ -108,7 +112,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			post.upvotes += 1;
-			// angular.element(document.getElementById(post._id+'-postUpvote'))[0].disabled = true;
+			angular.element(document.getElementById(post._id+'-postUpvote'))[0].disabled = true;
 		});
 	};
 	o.downvote = function(post) {
@@ -116,7 +120,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			post.downvotes += 1;
-			// angular.element(document.getElementById(post._id+'-postDownvote'))[0].disabled = true;
+			angular.element(document.getElementById(post._id+'-postDownvote'))[0].disabled = true;
 		});
 	};
 	o.get = function(id) {
@@ -134,7 +138,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			comment.upvotes += 1;
-			// angular.element(document.getElementById(comment._id+'-commentUpvote'))[0].disabled = true;
+			angular.element(document.getElementById(comment._id+'-commentUpvote'))[0].disabled = true;
 		});
 	};
 	o.downvoteComment = function(post, comment) {
@@ -142,7 +146,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			comment.downvotes += 1;
-			// angular.element(document.getElementById(comment._id+'-commentDownvote'))[0].disabled = true;
+			angular.element(document.getElementById(comment._id+'-commentDownvote'))[0].disabled = true;
 		});
 	};
 	return o;

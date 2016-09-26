@@ -1,24 +1,24 @@
 h1 {
-	margin-bottom: none;
+    margin-bottom: none;
     margin-top: 20px;
 }
 .alert {
-	margin-bottom: 1px !important;
+    margin-bottom: 1px !important;
 }
 .form-control {
-	margin: 5px 0px;
+    margin: 5px 0px;
 }
 .custom-navbar-10 {
-	background: #dff0d8 none repeat scroll 0 0;
+    background: #dff0d8 none repeat scroll 0 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
 }
 .custom-navbar-2 {
-	border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
 a#postComment > span.badge {
-	background-color: #cc3300;
+    background-color: #cc3300;
     border-bottom-left-radius: 0;
     border-color: #2e6da4;
     color: #fff;
@@ -34,16 +34,16 @@ a#postComment > span.badge {
     white-space: nowrap;
 }
 button[id$="-postUpvote"], button[id$="-commentUpvote"] {
-	background: transparent none repeat scroll 0 0;
+    background: transparent none repeat scroll 0 0;
     border: 0 none;
     padding: 0px;
     transform: scaleX(-1);
-	-moz-transform: scaleX(-1);
-	-webkit-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
 }
 button[id$="-postUpvote"] > span.badge, button[id$="-commentUpvote"] > span.badge {
-	background-color: #009933;
+    background-color: #009933;
     border-bottom-right-radius: 0;
     color: #fff;
     display: inline-block;
@@ -59,17 +59,17 @@ button[id$="-postUpvote"] > span.badge, button[id$="-commentUpvote"] > span.badg
     vertical-align: top;
     white-space: nowrap;
     transform: scaleX(-1);
-	-moz-transform: scaleX(-1);
-	-webkit-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
 }
 button[id$="-postDownvote"], button[id$="-commentDownvote"] {
-	background: transparent none repeat scroll 0 0;
+    background: transparent none repeat scroll 0 0;
     border: 0 none;
     padding: 0px;
 }
 button[id$="-postDownvote"] > span.badge, button[id$="-commentDownvote"] > span.badge {
-	background-color: #cc3300;
+    background-color: #cc3300;
     border-top-left-radius: 0;
     color: #fff;
     display: inline-block;
@@ -84,4 +84,46 @@ button[id$="-postDownvote"] > span.badge, button[id$="-commentDownvote"] > span.
     top: -7px;
     vertical-align: bottom;
     white-space: nowrap;
+}
+.popover.left {
+    background: #dff0d8 none repeat scroll 0 0;
+    text-decoration: none;
+    color: #777;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    display: block;
+    margin-left: -3px;
+    margin-top: -14px;
+    padding: 0 20px;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+
+.popover span {
+    display: block;
+    font-weight: normal;
+}
+
+.popover.left > .arrow::after {
+    border-left-color: #dff0d8;
+    border-right-width: 0;
+    bottom: -10px;
+    content: " ";
+    right: 1px;
+}
+
+.popover.custom-left {
+    margin-left: 4px !important;
+}
+
+.popover.custom-left span {
+    display: block;
+    font-weight: normal;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
 }
