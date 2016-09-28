@@ -70,6 +70,7 @@ router.get('/posts/:post', function(req, res) {
 });
 
 router.put('/posts/:post/upvote', auth, function(req, res, next) {
+	req.post.upvotedUsers.push(req.payload.username);
 	req.post.upvote(function(err, post) {
 		if (err) {return next(err);}
 
@@ -78,6 +79,7 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
 });
 
 router.put('/posts/:post/downvote', auth, function(req, res, next) {
+	req.post.downvotedUsers.push(req.payload.username);
 	req.post.downvote(function(err, post) {
 		if (err) {return next(err);}
 
@@ -107,6 +109,7 @@ router.post('/posts/:post/comments', auth, function(req, res, next) {
 });
 
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
+	req.comment.upvotedUsers.push(req.payload.username);
 	req.comment.upvote(function(err, comment) {
 		if (err) {return next(err);}
 
@@ -115,6 +118,7 @@ router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, nex
 });
 
 router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
+	req.comment.downvotedUsers.push(req.payload.username);
 	req.comment.downvote(function(err, comment) {
 		if (err) {return next(err);}
 

@@ -13,22 +13,23 @@ app
 		$scope.title = '';
 		$scope.link = '';
 	};
+	$scope.isLoggedIn = auth.isLoggedIn;
+	$scope.currentUser = auth.currentUser;
 	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(post) {
-		if (!post.hadUpvoted) {
-			post.hadUpvoted = true;
+		if (post.upvotedUsers.indexOf($scope.currentUser())==-1) {
+			// post.hadUpvoted = true;
 			posts.upvote(post);
 		}
 	};
-	$scope.isLoggedIn = auth.isLoggedIn;
 	$scope.postFormShown = 0;
 	$scope.showPostForm = function() {
 		$scope.postFormShown = 1;
 	};
 	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(post) {
-		if (!post.hadDownvoted) {
-			post.hadDownvoted = true;
+		if (post.downvotedUsers.indexOf($scope.currentUser())==-1) {
+			// post.hadDownvoted = true;
 			posts.downvote(post);
 		}
 	};
@@ -46,22 +47,23 @@ app
 		});
 		$scope.body = '';
 	};
+	$scope.isLoggedIn = auth.isLoggedIn;
+	$scope.currentUser = auth.currentUser;
 	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(comment) {
-		if (!comment.hadUpvoted) {
-			comment.hadUpvoted = true;
+		if (comment.upvotedUsers.indexOf($scope.currentUser())==-1) {
+			// comment.hadUpvoted = true;
 			posts.upvoteComment(post, comment);
 		}
 	};
-	$scope.isLoggedIn = auth.isLoggedIn;
 	$scope.commentFormShown = 0;
 	$scope.showCommentForm = function() {
 		$scope.commentFormShown = 1;
 	};
 	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(comment) {
-		if (!comment.hadDownvoted) {
-			comment.hadDownvoted = true;
+		if (comment.downvotedUsers.indexOf($scope.currentUser())==-1) {
+			// comment.hadDownvoted = true;
 			posts.downvoteComment(post, comment);
 		}
 	};
