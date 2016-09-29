@@ -17,10 +17,8 @@ app
 	$scope.currentUser = auth.currentUser;
 	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(post) {
-		if (post.upvotedUsers.indexOf($scope.currentUser())==-1) {
-			// post.hadUpvoted = true;
-			posts.upvote(post);
-		}
+		if (post.upvotedUsers.indexOf($scope.currentUser())>-1) {return;}
+		posts.upvote(post);
 	};
 	$scope.postFormShown = 0;
 	$scope.showPostForm = function() {
@@ -28,10 +26,8 @@ app
 	};
 	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(post) {
-		if (post.downvotedUsers.indexOf($scope.currentUser())==-1) {
-			// post.hadDownvoted = true;
-			posts.downvote(post);
-		}
+		if (post.downvotedUsers.indexOf($scope.currentUser())>-1) {return;}
+		posts.downvote(post);
 	};
 }])
 .controller('PostsCtrl', ['$scope', '$stateParams', 'posts', 'post', 'auth', function($scope, $stateParams, posts, post, auth) {
@@ -51,10 +47,8 @@ app
 	$scope.currentUser = auth.currentUser;
 	$scope.showPopover = false;
 	$scope.incrementUpvotes = function(comment) {
-		if (comment.upvotedUsers.indexOf($scope.currentUser())==-1) {
-			// comment.hadUpvoted = true;
-			posts.upvoteComment(post, comment);
-		}
+		if (comment.upvotedUsers.indexOf($scope.currentUser())>-1) {return;}
+		posts.upvoteComment(post, comment);
 	};
 	$scope.commentFormShown = 0;
 	$scope.showCommentForm = function() {
@@ -62,10 +56,8 @@ app
 	};
 	$scope.showDownPopover = false;
 	$scope.incrementDownvotes = function(comment) {
-		if (comment.downvotedUsers.indexOf($scope.currentUser())==-1) {
-			// comment.hadDownvoted = true;
-			posts.downvoteComment(post, comment);
-		}
+		if (comment.downvotedUsers.indexOf($scope.currentUser())>-1) {return;}
+		posts.downvoteComment(post, comment);
 	};
 }])
 .controller('AuthCtrl', ['$scope', '$state', 'auth', function($scope, $state, auth){
@@ -114,6 +106,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			post.upvotes += 1;
+			post.upvotedUsers.push(auth.currentUser());
 			angular.element(document.getElementById(post._id+'-postUpvote'))[0].disabled = true;
 		});
 	};
@@ -122,6 +115,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			post.downvotes += 1;
+			post.downvotedUsers.push(auth.currentUser());
 			angular.element(document.getElementById(post._id+'-postDownvote'))[0].disabled = true;
 		});
 	};
@@ -140,6 +134,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			comment.upvotes += 1;
+			comment.upvotedUsers.push(auth.currentUser());
 			angular.element(document.getElementById(comment._id+'-commentUpvote'))[0].disabled = true;
 		});
 	};
@@ -148,6 +143,7 @@ app
 			headers: {Authorization: 'Bearer '+auth.getToken()}
 		}).success(function(data) {
 			comment.downvotes += 1;
+			comment.downvotedUsers.push(auth.currentUser());
 			angular.element(document.getElementById(comment._id+'-commentDownvote'))[0].disabled = true;
 		});
 	};
